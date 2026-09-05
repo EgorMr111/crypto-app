@@ -18,6 +18,7 @@
       --danger-color: #f6465d;
       --success-color: #0ecb81;
       --warning-color: #f0b90b;
+      --nav-height: 65px;
     }
 
     * {
@@ -30,14 +31,13 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       margin: 0;
-      padding: 16px;
+      padding: 16px 16px calc(var(--nav-height) + 20px) 16px;
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
       -webkit-user-select: none;
     }
 
-    /* Красивый анимированный декор фона */
     body::before, body::after {
       content: '';
       position: fixed;
@@ -89,7 +89,6 @@
       margin: 0 0 6px 0;
     }
 
-    /* Индикатор онлайн-статуса */
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -117,7 +116,6 @@
       50% { opacity: 0.4; transform: scale(0.8); }
     }
 
-    /* Быстрые контакты */
     .quick-links {
       display: flex;
       gap: 8px;
@@ -147,46 +145,61 @@
       background: rgba(42, 171, 238, 0.2);
     }
 
-    /* Навигационные вкладки */
-    .tabs {
+    /* Нижнє меню навігації */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: rgba(15, 17, 24, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--card-border);
       display: flex;
-      gap: 6px;
-      margin-bottom: 16px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: none;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 999;
+      padding: 0 4px;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
     }
 
-    .tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab-btn {
+    .nav-item {
       flex: 1;
-      white-space: nowrap;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
       color: var(--text-muted);
-      padding: 9px 12px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 700;
+      padding: 6px 0;
       cursor: pointer;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
     }
 
-    .tab-btn.active {
-      background: linear-gradient(135deg, rgba(42, 171, 238, 0.25) 0%, rgba(42, 171, 238, 0.08) 100%);
-      border-color: var(--accent-color);
-      color: var(--text-color);
-      box-shadow: 0 0 12px var(--accent-glow);
+    .nav-item .icon {
+      font-size: 18px;
+      margin-bottom: 3px;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-item .label {
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .nav-item.active {
+      color: var(--accent-color);
+    }
+
+    .nav-item.active .icon {
+      transform: translateY(-2px) scale(1.1);
     }
 
     .tab-content {
       display: none;
-      animation: fadeIn 0.3s ease-in-out;
+      animation: fadeIn 0.25s ease-in-out;
     }
 
     .tab-content.active {
@@ -198,7 +211,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Статистика и плашка доверия */
     .trust-badge {
       display: flex;
       justify-content: space-around;
@@ -240,7 +252,6 @@
       backdrop-filter: blur(8px);
     }
 
-    /* Админ-панель */
     .admin-panel {
       display: none;
       background: rgba(14, 203, 129, 0.08);
@@ -324,7 +335,6 @@
       cursor: pointer;
     }
 
-    /* Карточка и блоки */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -434,30 +444,6 @@
       transform: rotate(180deg);
     }
 
-    .quick-amounts {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .quick-btn {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      padding: 7px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .quick-btn:active {
-      background: rgba(42, 171, 238, 0.15);
-      color: var(--accent-color);
-    }
-
     .benefit-box {
       display: flex;
       justify-content: space-between;
@@ -508,7 +494,6 @@
       margin-bottom: 16px;
     }
 
-    /* Рынок */
     .market-item {
       display: flex;
       justify-content: space-between;
@@ -531,7 +516,6 @@
       color: var(--text-muted);
     }
 
-    /* FAQ accordion */
     .faq-item {
       margin-bottom: 8px;
       border: 1px solid var(--card-border);
@@ -607,21 +591,10 @@
     </div>
   </div>
 
-  <!-- Швидкі контакти -->
   <div class="quick-links">
     <a href="https://t.me/soyercrypto" target="_blank" class="quick-link-btn">📢 Канал</a>
     <a href="https://t.me/soyermanager" target="_blank" class="quick-link-btn">🤝 Менеджер</a>
     <a href="https://t.me/soyer_pr" target="_blank" class="quick-link-btn">💸 Проєкти</a>
-  </div>
-
-  <!-- Навігаційні вкладки -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('exchangeTab', this)">🔄 Обмін</button>
-    <button class="tab-btn" onclick="switchTab('stakeTab', this)">💰 Стейкінг</button>
-    <button class="tab-btn" onclick="switchTab('marketTab', this)">📊 Ринок</button>
-    <button class="tab-btn" onclick="switchTab('reviewsTab', this)">⭐ Відгуки</button>
-    <button class="tab-btn" onclick="switchTab('promoTab', this)">🎁 Бонуси</button>
-    <button class="tab-btn" onclick="switchTab('contactsTab', this)">📞 Контакти</button>
   </div>
 
   <div id="maintenanceBanner" class="maintenance-banner">
@@ -699,13 +672,6 @@
         </div>
       </div>
 
-      <div class="quick-amounts">
-        <button class="quick-btn" onclick="setQuickAmount(50)">50 $</button>
-        <button class="quick-btn" onclick="setQuickAmount(100)">100 $</button>
-        <button class="quick-btn" onclick="setQuickAmount(250)">250 $</button>
-        <button class="quick-btn" onclick="setQuickAmount(500)">500 $</button>
-      </div>
-
       <div class="swap-container">
         <button class="swap-btn" onclick="toggleDirection()">🔄</button>
       </div>
@@ -764,39 +730,34 @@
     </div>
   </div>
 
-  <!-- ВКЛАДКА 2: СТЕЙКІНГ КАЛЬКУЛЯТОР -->
+  <!-- ВКЛАДКА 2: СТЕЙКІНГ -->
   <div id="stakeTab" class="tab-content">
     <div class="card">
-      <h3 style="margin-top:0; font-size:15px; color:var(--accent-color);">💰 Калькулятор пасивного доходу</h3>
-      <p style="font-size: 12px; color: var(--text-muted);">Розрахуйте дохід від інвестицій у стейкінг через SOYER CRYPTO.</p>
+      <h3 style="margin-top:0; font-size:15px; color:var(--accent-color);">💰 Калькулятор стейкінгу</h3>
+      <p style="font-size: 12px; color: var(--text-muted);">Розрахуйте дохід від інвестицій у стейкінг на термін 30 днів (12% річних).</p>
       
       <div class="input-group">
         <label>Сума інвестиції (USDT):</label>
         <div class="input-box">
-          <input type="number" id="stakeAmount" value="500" oninput="calcStake()">
+          <input type="number" id="stakeAmount" placeholder="0.00" oninput="calcStake()">
         </div>
       </div>
 
       <div class="input-group">
-        <label>Термін розміщення:</label>
+        <label>Умови стейкінгу:</label>
         <div class="input-box">
-          <select id="stakePeriod" onchange="calcStake()">
-            <option value="30">30 днів (12% річних)</option>
-            <option value="90">90 днів (15% річних)</option>
-            <option value="180">180 днів (18% річних)</option>
-            <option value="365">365 днів (24% річних)</option>
-          </select>
+          <input type="text" value="30 днів (12% річних)" readonly style="color: var(--accent-color); font-weight: bold;">
         </div>
       </div>
 
       <div style="background: rgba(42, 171, 238, 0.08); border: 1px solid rgba(42, 171, 238, 0.2); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
         <div style="display:flex; justify-content:space-between; font-size: 12px; margin-bottom: 6px;">
-          <span>Чистий прибуток:</span>
-          <strong id="stakeProfit" style="color: var(--success-color);">+$14.79 USDT</strong>
+          <span>Чистий прибуток (за 30 днів):</span>
+          <strong id="stakeProfit" style="color: var(--success-color);">$0.00 USDT</strong>
         </div>
         <div style="display:flex; justify-content:space-between; font-size: 12px;">
           <span>Разом у кінці терміну:</span>
-          <strong id="stakeTotal" style="color: var(--accent-color);">$514.79 USDT</strong>
+          <strong id="stakeTotal" style="color: var(--accent-color);">$0.00 USDT</strong>
         </div>
       </div>
 
@@ -861,7 +822,7 @@
           <span>Олександр (@alex_crypto)</span>
           <span>5/5 ★</span>
         </div>
-        <div>Все супер! Обміняв 200 USDT на Монобанк, гроші прийшли за 3 хвилини. Курс топовий.</div>
+        <div>Все супер! Обміняв USDT на Монобанк, гроші прийшли за 3 хвилини. Курс топовий.</div>
       </div>
 
       <div class="review-item">
@@ -889,7 +850,7 @@
       <p style="font-size: 12px; color: var(--text-muted);">Введіть промокод з нашого Telegram-каналу для отримання бонусу до курсу.</p>
       <div class="input-group">
         <div class="input-box">
-          <input type="text" id="promoInput" placeholder="SOYER2026" style="text-transform: uppercase;">
+          <input type="text" id="promoInput" placeholder="Введіть код" style="text-transform: uppercase;">
         </div>
       </div>
       <button class="btn-submit" onclick="applyPromo()" style="margin-bottom: 14px;">Активувати</button>
@@ -923,10 +884,38 @@
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">Яка мінімальна сума обміну?</div>
-        <div class="faq-answer">Мінімальна сума для обміну складає 10 USDT або 400 UAH.</div>
+        <div class="faq-answer">Мінімальна сума для обміну залежить від обраної мережі.</div>
       </div>
     </div>
   </div>
+
+  <!-- НИЖНЯ ФІКСОВАНА ПАНЕЛЬ НАВІГАЦІЇ -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('exchangeTab', this)">
+      <span class="icon">🔄</span>
+      <span class="label">Обмін</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('stakeTab', this)">
+      <span class="icon">💰</span>
+      <span class="label">Стейкінг</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('marketTab', this)">
+      <span class="icon">📊</span>
+      <span class="label">Ринок</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('reviewsTab', this)">
+      <span class="icon">⭐</span>
+      <span class="label">Відгуки</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('promoTab', this)">
+      <span class="icon">🎁</span>
+      <span class="label">Бонуси</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('contactsTab', this)">
+      <span class="icon">📞</span>
+      <span class="label">Контакти</span>
+    </button>
+  </nav>
 
   <script>
     const tg = window.Telegram.WebApp;
@@ -958,9 +947,12 @@
 
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      
       document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
+      if (btn) btn.classList.add('active');
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function checkStatus() {
@@ -1003,7 +995,7 @@
     function calculate() {
       const give = parseFloat(document.getElementById('giveAmount').value) || 0;
       let get = isBuyMode ? (give * buyRate) : (give / sellRate);
-      document.getElementById('getAmount').value = get.toFixed(2);
+      document.getElementById('getAmount').value = get ? get.toFixed(2) : '';
 
       const benefitBox = document.getElementById('benefitBox');
       const benefitValue = document.getElementById('benefitValue');
@@ -1020,11 +1012,8 @@
 
     function calcStake() {
       const amount = parseFloat(document.getElementById('stakeAmount').value) || 0;
-      const days = parseInt(document.getElementById('stakePeriod').value);
-      let apy = 0.12;
-      if (days === 90) apy = 0.15;
-      if (days === 180) apy = 0.18;
-      if (days === 365) apy = 0.24;
+      const days = 30;
+      const apy = 0.12;
 
       const profit = (amount * apy * (days / 365));
       const total = amount + profit;
@@ -1035,19 +1024,18 @@
 
     function requestStake() {
       const amount = document.getElementById('stakeAmount').value;
-      const days = document.getElementById('stakePeriod').value;
+      if (!amount || parseFloat(amount) <= 0) {
+        alert('Введіть суму для стейкінгу!');
+        return;
+      }
       const data = {
         action: 'stake_request',
         amount: amount,
-        days: days
+        days: 30,
+        rate: '12%'
       };
       tg.sendData(JSON.stringify(data));
       tg.close();
-    }
-
-    function setQuickAmount(val) {
-      document.getElementById('giveAmount').value = val;
-      calculate();
     }
 
     async function pasteRequisites() {
@@ -1066,7 +1054,7 @@
 
     function applyPromo() {
       const code = document.getElementById('promoInput').value.trim().toUpperCase();
-      if (code === 'SOYER' || code === 'SOYER2026') {
+      if (code === 'SOYER') {
         alert('🎉 Промокод активовано! Вам надано +0.20 ₴ до курсу!');
         buyRate += 0.20;
         document.getElementById('displayBuyRate').innerText = buyRate.toFixed(2) + ' ₴';
